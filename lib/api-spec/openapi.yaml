@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: revenue
+    description: Revenue recovery intelligence
 paths:
   /healthz:
     get:
@@ -24,6 +26,136 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /revenue/summary:
+    get:
+      operationId: getRevenueSummary
+      tags: [revenue]
+      summary: Get command center revenue summary
+      responses:
+        "200":
+          description: Revenue summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RevenueSummary"
+  /revenue/leakage:
+    get:
+      operationId: getLeakageCategories
+      tags: [revenue]
+      summary: Get grouped revenue leakage categories
+      responses:
+        "200":
+          description: Leakage categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeakageCategory"
+  /revenue/queue:
+    get:
+      operationId: getRecoveryQueue
+      tags: [revenue]
+      summary: Get AI-prioritized recovery queue
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema: { type: string }
+        - name: status
+          in: query
+          required: false
+          schema: { type: string }
+      responses:
+        "200":
+          description: Recovery queue
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecoveryOpportunity"
+  /revenue/customers/{customerId}:
+    get:
+      operationId: getCustomerRecoveryProfile
+      tags: [revenue]
+      summary: Get a customer recovery profile
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: Customer recovery profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerProfile"
+        "404":
+          description: Customer not found
+  /revenue/simulator:
+    post:
+      operationId: runRecoverySimulation
+      tags: [revenue]
+      summary: Run a reproducible recovery simulation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SimulationInput"
+      responses:
+        "200":
+          description: Simulation results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimulationResult"
+  /revenue/chaos:
+    post:
+      operationId: triggerChaosDemo
+      tags: [revenue]
+      summary: Trigger a safe failure-mode demonstration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChaosInput"
+      responses:
+        "200":
+          description: Paused action result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChaosResult"
+  /revenue/demo:
+    post:
+      operationId: runJudgeDemo
+      tags: [revenue]
+      summary: Run the bounded 2-minute judge demo
+      responses:
+        "200":
+          description: Demo outcome
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DemoResult"
+  /revenue/audit:
+    get:
+      operationId: getAuditTrail
+      tags: [revenue]
+      summary: Get immutable-style decision activity
+      responses:
+        "200":
+          description: Audit events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AuditEvent"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +165,133 @@ components:
           type: string
       required:
         - status
+    RevenueSummary:
+      type: object
+      required: [processed, atRisk, recoverable, recovered, recoveryRate, incremental, interventionCost, netRecovered, transactions, customers]
+      properties:
+        processed: { type: number }
+        atRisk: { type: number }
+        recoverable: { type: number }
+        recovered: { type: number }
+        recoveryRate: { type: number }
+        incremental: { type: number }
+        interventionCost: { type: number }
+        netRecovered: { type: number }
+        transactions: { type: number }
+        customers: { type: number }
+    LeakageCategory:
+      type: object
+      required: [id, label, lost, recoverable, probability, share, color]
+      properties:
+        id: { type: string }
+        label: { type: string }
+        lost: { type: number }
+        recoverable: { type: number }
+        probability: { type: number }
+        share: { type: number }
+        color: { type: string }
+    RecoveryOpportunity:
+      type: object
+      required: [id, customerId, customer, amount, failureReason, probability, expectedRecovery, expectedNet, action, priority, confidence, status, retryCount, paymentMethod]
+      properties:
+        id: { type: string }
+        customerId: { type: string }
+        customer: { type: string }
+        amount: { type: number }
+        failureReason: { type: string }
+        probability: { type: number }
+        expectedRecovery: { type: number }
+        expectedNet: { type: number }
+        action: { type: string }
+        priority: { type: string }
+        confidence: { type: number }
+        status: { type: string }
+        retryCount: { type: number }
+        paymentMethod: { type: string }
+    CustomerProfile:
+      type: object
+      required: [id, name, outstanding, probability, value, behavior, recentFailures, successfulRecoveries, recommendedAction, expectedRecovery, confidence, why, factors]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        outstanding: { type: number }
+        probability: { type: number }
+        value: { type: string }
+        behavior: { type: string }
+        recentFailures: { type: number }
+        successfulRecoveries: { type: number }
+        recommendedAction: { type: string }
+        expectedRecovery: { type: number }
+        confidence: { type: number }
+        why: { type: string }
+        factors:
+          type: array
+          items: { type: string }
+    SimulationInput:
+      type: object
+      required: [transactions, seed]
+      properties:
+        transactions: { type: number, minimum: 1000, maximum: 100000 }
+        seed: { type: number }
+    SimulationResult:
+      type: object
+      required: [transactions, atRisk, baselines, model, incremental, heldOut]
+      properties:
+        transactions: { type: number }
+        atRisk: { type: number }
+        incremental: { type: number }
+        heldOut: { type: number }
+        baselines:
+          type: array
+          items:
+            $ref: "#/components/schemas/SimulationStrategy"
+        model:
+          $ref: "#/components/schemas/SimulationStrategy"
+    SimulationStrategy:
+      type: object
+      required: [name, recovered, rate, cost, contacts, falseInterventions, net]
+      properties:
+        name: { type: string }
+        recovered: { type: number }
+        rate: { type: number }
+        cost: { type: number }
+        contacts: { type: number }
+        falseInterventions: { type: number }
+        net: { type: number }
+    ChaosInput:
+      type: object
+      required: [scenario]
+      properties:
+        scenario: { type: string }
+    ChaosResult:
+      type: object
+      required: [scenario, title, action, status, reason, nextAction]
+      properties:
+        scenario: { type: string }
+        title: { type: string }
+        action: { type: string }
+        status: { type: string }
+        reason: { type: string }
+        nextAction: { type: string }
+    DemoResult:
+      type: object
+      required: [recovered, incremental, decisions, recoveryRate, events]
+      properties:
+        recovered: { type: number }
+        incremental: { type: number }
+        decisions: { type: number }
+        recoveryRate: { type: number }
+        events:
+          type: array
+          items: { type: string }
+    AuditEvent:
+      type: object
+      required: [id, time, type, detail, amount, status]
+      properties:
+        id: { type: string }
+        time: { type: string }
+        type: { type: string }
+        detail: { type: string }
+        amount: { type: number }
+        status: { type: string }
 

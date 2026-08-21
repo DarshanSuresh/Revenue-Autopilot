@@ -6,6 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface HealthStatus {
+export interface ChaosResult {
+  scenario: string;
+  title: string;
+  action: string;
   status: string;
+  reason: string;
+  nextAction: string;
 }

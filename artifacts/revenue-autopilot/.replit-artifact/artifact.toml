@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Revenue Autopilot"
+description = "A fintech command center that detects at-risk revenue, predicts recovery, selects bounded interventions, simulates safe actions, and measures incremental revenue recovered for demo merchants."
+version = "1.0.0"
+id = "artifacts/revenue-autopilot"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19991
+
+[services.development]
+run = "pnpm --filter @workspace/revenue-autopilot run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/revenue-autopilot", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/revenue-autopilot/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19991"
+BASE_PATH = "/"

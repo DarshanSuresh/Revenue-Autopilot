@@ -6,6 +6,11 @@
  * OpenAPI spec version: 0.1.0
  */
 
-export interface HealthStatus {
+export interface AuditEvent {
+  id: string;
+  time: string;
+  type: string;
+  detail: string;
+  amount: number;
   status: string;
 }

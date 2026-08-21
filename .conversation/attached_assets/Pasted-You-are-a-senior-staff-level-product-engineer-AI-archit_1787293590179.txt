@@ -1,0 +1,970 @@
+You are a senior staff-level product engineer, AI architect, fintech engineer, UX designer, and hackathon-winning technical lead.
+
+Build a production-quality hackathon application called:
+
+REVENUE AUTOPILOT
+"An autonomous AI revenue-recovery decision engine that finds money at risk, understands WHY revenue is being lost, chooses the optimal intervention, executes bounded recovery actions, and measures incremental revenue recovered."
+
+IMPORTANT:
+This is NOT a generic dashboard.
+This is NOT a chatbot.
+This is NOT a simple failed-payment reminder system.
+
+The core product must demonstrate:
+DETECT → DIAGNOSE → PREDICT → DECIDE → ACT → VERIFY → LEARN
+
+The application should feel like a real fintech product that could be deployed by a payment platform or merchant.
+
+==================================================
+1. CORE PROBLEM
+==================================================
+
+Merchants lose revenue because of:
+
+- payment failures
+- checkout abandonment
+- subscription failures
+- repeated failed retries
+- payment-method degradation
+- overdue invoices
+- customer-specific payment behavior
+- poor retry timing
+- unnecessary discounts
+- customers who should be escalated to humans
+- customers who should NOT be contacted again
+
+Most systems simply detect a failure and send a reminder.
+
+Revenue Autopilot must instead answer:
+
+1. How much revenue is at risk?
+2. WHY is it at risk?
+3. Which customers are actually recoverable?
+4. What is the probability of recovery?
+5. What intervention should happen?
+6. When should it happen?
+7. What is the expected financial return?
+8. When should the system STOP?
+9. How much money was actually recovered?
+10. How much incremental revenue did the AI generate compared with baseline strategies?
+
+==================================================
+2. CORE AI DECISION FORMULA
+==================================================
+
+For every at-risk transaction/customer, calculate:
+
+Expected Recovery Value
+-
+Intervention Cost
+-
+Customer Friction Cost
+-
+Discount Cost
+=
+Expected Net Recovery Value
+
+The AI should select an action only when the expected value is positive.
+
+Possible actions:
+
+- RETRY_NOW
+- RETRY_LATER
+- CHANGE_RETRY_TIMING
+- SWITCH_PAYMENT_METHOD
+- SEND_EMAIL
+- SEND_WHATSAPP
+- OFFER_LIMITED_INCENTIVE
+- ESCALATE_TO_HUMAN
+- DO_NOTHING
+- STOP_RETRYING
+
+Every AI decision MUST have an explanation.
+
+Example:
+
+Customer:
+₹4,999 failed payment
+
+AI decision:
+RETRY_LATER
+
+Reason:
+- Historical successful retry probability: 72%
+- Customer usually completes payments between 7 PM–10 PM
+- Previous retry occurred at 10 AM
+- Expected recovery: ₹3,599
+- Intervention cost: ₹4
+- Expected net recovery: ₹3,595
+
+==================================================
+3. MAIN PRODUCT FLOW
+==================================================
+
+Create this exact workflow:
+
+DATA
+↓
+Revenue Loss Engine
+↓
+At-Risk Detection
+↓
+Root Cause Diagnosis
+↓
+Customer Behavior Analysis
+↓
+Recovery Probability Prediction
+↓
+Intervention Optimization
+↓
+Bounded AI Action
+↓
+Payment/Outcome Verification
+↓
+Revenue Recovered
+↓
+Feedback Loop
+
+==================================================
+4. DASHBOARD
+==================================================
+
+Create a premium fintech-style command center.
+
+Top KPI cards:
+
+- Total Revenue Processed
+- Revenue At Risk
+- Recoverable Revenue
+- Revenue Recovered
+- Recovery Rate
+- AI Incremental Revenue
+- Intervention Cost
+- Net Revenue Recovered
+
+Example:
+
+Revenue at Risk:
+₹18.4L
+
+Recoverable:
+₹11.7L
+
+Recovered:
+₹7.1L
+
+Recovery Rate:
+60.7%
+
+AI Incremental Revenue:
++₹2.4L
+
+Do NOT use fake-looking exaggerated metrics without clearly labeling the data as simulated/demo data.
+
+==================================================
+5. LIVE REVENUE LEAKAGE MAP
+==================================================
+
+Create a visual section showing WHERE revenue is leaking.
+
+Categories:
+
+Payment Failure
+Checkout Abandonment
+Subscription Failure
+Overdue Invoice
+Retry Failure
+Payment Method Issue
+
+Display:
+
+Revenue Lost
+Revenue Recoverable
+Recovery Probability
+
+Allow the user to click a category and drill down.
+
+==================================================
+6. AI REVENUE LOSS ENGINE
+==================================================
+
+Build an AI/ML layer that analyzes transaction history.
+
+Features may include:
+
+- transaction amount
+- payment method
+- failure reason
+- retry count
+- timestamp
+- customer history
+- successful payment history
+- average payment time
+- previous recovery behavior
+- customer lifetime value
+- subscription status
+- invoice age
+- number of previous failures
+- checkout duration
+- device type
+- geographic region
+- payment gateway response
+- historical intervention outcomes
+
+Generate:
+
+Recovery Probability
+Failure Probability
+Optimal Retry Time
+Recommended Intervention
+Expected Recovery Amount
+Expected Net Recovery
+Confidence Score
+
+==================================================
+7. CUSTOMER RECOVERY PROFILE
+==================================================
+
+Create a detailed customer page.
+
+Example:
+
+CUSTOMER #C10482
+
+Outstanding:
+₹12,499
+
+Recovery Probability:
+81%
+
+Customer Value:
+HIGH
+
+Behavior Pattern:
+Usually pays between 6 PM–9 PM
+
+Recent failures:
+2
+
+Previous successful recoveries:
+4
+
+Recommended action:
+RETRY AT 7:30 PM
+
+Expected recovery:
+₹10,124
+
+Confidence:
+87%
+
+WHY:
+"Customer has historically recovered after evening retries. Previous morning retries failed."
+
+==================================================
+8. AI EXPLANABILITY
+==================================================
+
+Every recommendation must contain:
+
+WHAT:
+Recommended action
+
+WHY:
+Reason for decision
+
+EXPECTED:
+Expected recovery
+
+RISK:
+Potential downside
+
+ALTERNATIVE:
+Next-best action
+
+STOP CONDITION:
+When the AI must stop
+
+Example:
+
+AI DECISION
+
+Action:
+Retry payment at 7:30 PM
+
+Why:
+Customer historically succeeds during evening payment windows.
+
+Expected recovery:
+₹4,120
+
+Risk:
+Repeated retries may increase customer friction.
+
+Stop condition:
+Stop after 2 unsuccessful retries.
+
+Alternative:
+Request alternate payment method.
+
+==================================================
+9. RECOVERY SIMULATOR
+==================================================
+
+This is a CRITICAL feature.
+
+Create a "Recovery Simulator" where the judge can upload or select a dataset containing thousands of transactions.
+
+Default demo dataset:
+10,000 synthetic transactions.
+
+Compare:
+
+BASELINE 1:
+No intervention
+
+BASELINE 2:
+Fixed retry strategy
+
+BASELINE 3:
+Rule-based strategy
+
+MODEL:
+Revenue Autopilot
+
+Show:
+
+Total Revenue At Risk
+Recovered Revenue
+Recovery Rate
+Intervention Cost
+Customer Contacts
+False Interventions
+Net Revenue Recovered
+
+Example UI:
+
+                    Revenue Recovered
+
+No Intervention      ₹0
+Fixed Retry          ₹3.2L
+Rule Based           ₹4.7L
+Revenue Autopilot   ₹7.1L
+
+Also show:
+
+Incremental Revenue:
+₹2.4L
+
+The system must calculate these numbers from the underlying simulation rather than hardcoding them.
+
+==================================================
+10. A/B TEST / HOLDOUT EVALUATION
+==================================================
+
+Create a proper evaluation mechanism.
+
+Split data into:
+
+CONTROL
+and
+AI TREATMENT
+
+Compare:
+
+Recovery Rate
+Revenue Recovered
+Average Intervention Cost
+Customer Contact Rate
+False Positive Rate
+Net Revenue
+
+Use a held-out test set where possible.
+
+Clearly label:
+
+Training Data
+Validation Data
+Held-out Test Data
+
+Do NOT claim production performance from synthetic data.
+
+==================================================
+11. AI AGENT
+==================================================
+
+Create an autonomous "Revenue Recovery Agent".
+
+The agent should have these internal tools:
+
+1. get_customer_history()
+2. analyze_payment_failure()
+3. estimate_recovery_probability()
+4. calculate_expected_value()
+5. select_intervention()
+6. check_policy_limits()
+7. execute_simulated_action()
+8. verify_payment_result()
+9. update_customer_state()
+10. log_decision()
+
+The agent should operate within strict boundaries.
+
+It must NEVER:
+
+- make unlimited retries
+- issue arbitrary discounts
+- contact customers indefinitely
+- bypass payment authorization
+- make uncontrolled financial actions
+- modify transaction amounts without authorization
+
+==================================================
+12. POLICY / GUARDRAILS ENGINE
+==================================================
+
+Create a visible "AI Guardrails" panel.
+
+Example policies:
+
+Maximum retries:
+2
+
+Maximum incentive:
+5%
+
+Maximum automated recovery amount:
+₹25,000
+
+Maximum customer contacts:
+3
+
+Human approval required:
+Amounts > ₹25,000
+
+Automatic STOP:
+Repeated failures
+Customer opt-out
+Suspicious behavior
+Policy violation
+
+Every blocked action should appear in the audit log.
+
+==================================================
+13. FAILURE DEMONSTRATION
+==================================================
+
+The hackathon judges specifically care about graceful failure.
+
+Create a "Chaos Demo" button.
+
+When clicked, simulate:
+
+Payment gateway timeout
+or
+Payment retry failure
+or
+AI recommendation confidence dropping
+
+The agent must respond safely.
+
+Example:
+
+Gateway timeout detected.
+
+AI ACTION:
+
+"Payment result cannot be verified."
+
+DO NOT retry automatically.
+
+Status:
+ACTION PAUSED
+
+Reason:
+Payment state is unknown.
+
+Next action:
+Require payment-status verification.
+
+This must be visible in the UI.
+
+==================================================
+14. AUDIT TRAIL
+==================================================
+
+Create a complete immutable-style activity timeline.
+
+Example:
+
+09:32:11
+Payment failed
+₹4,999
+
+09:32:12
+AI diagnosed:
+Temporary gateway failure
+
+09:32:13
+Recovery probability:
+78%
+
+09:32:14
+Action selected:
+Retry at 7:30 PM
+
+09:32:14
+Policy check:
+PASSED
+
+09:32:15
+Action executed:
+SIMULATED RETRY
+
+09:32:17
+Payment:
+SUCCESS
+
+09:32:18
+Recovered:
+₹4,999
+
+09:32:19
+Decision logged
+
+Every action must be explainable.
+
+==================================================
+15. REVENUE RECOVERY QUEUE
+==================================================
+
+Create an AI-prioritized queue.
+
+Columns:
+
+Customer
+Amount
+Failure Reason
+Recovery Probability
+Expected Recovery
+Recommended Action
+Priority
+Confidence
+Status
+
+Sort by:
+
+Expected Net Recovery
+
+not simply transaction amount.
+
+Example:
+
+₹2,000 payment
+90% recovery probability
+
+should rank above:
+
+₹20,000 payment
+5% recovery probability
+
+because expected recovery is more meaningful.
+
+==================================================
+16. ROOT CAUSE ANALYSIS
+==================================================
+
+Create an AI-generated root-cause engine.
+
+Example:
+
+Revenue leakage increased 18%.
+
+AI diagnosis:
+
+42%:
+Temporary payment failures
+
+27%:
+Insufficient funds
+
+19%:
+Checkout abandonment
+
+12%:
+Unknown
+
+Then provide recommended action:
+
+"Changing retry timing from 10 AM to 7 PM could recover an estimated ₹84,000."
+
+Make the recommendation traceable to data.
+
+==================================================
+17. NATURAL LANGUAGE COMMAND CENTER
+==================================================
+
+Add a command interface.
+
+Example queries:
+
+"How much revenue can we recover today?"
+
+"Why did revenue recovery drop this week?"
+
+"Show customers worth more than ₹10,000 with high recovery probability."
+
+"Which intervention performs best?"
+
+"Why didn't you retry customer C10482?"
+
+"How much incremental revenue did AI generate?"
+
+The AI should answer using the application's actual data.
+
+DO NOT make this a generic chatbot.
+
+Every answer should link back to underlying transactions/evidence.
+
+==================================================
+18. MERCHANT SIMULATION
+==================================================
+
+Create a realistic demo merchant.
+
+Include:
+
+10,000+ synthetic transactions
+1,000+ customers
+multiple payment methods
+multiple failure reasons
+subscriptions
+invoices
+checkout sessions
+payment retries
+recovery outcomes
+
+Generate realistic temporal and behavioral patterns.
+
+Do not generate perfectly random data.
+
+Create meaningful correlations such as:
+
+- some customers pay at specific times
+- some payment methods fail more often
+- some retry strategies perform better
+- certain failure types are recoverable
+- some customers should never be repeatedly contacted
+
+==================================================
+19. TECHNICAL ARCHITECTURE
+==================================================
+
+Use a modern production-style architecture.
+
+Frontend:
+React / Next.js
+
+UI:
+Tailwind CSS
+
+Charts:
+Recharts / equivalent
+
+Backend:
+Python FastAPI or Node.js
+
+Database:
+PostgreSQL
+
+AI/ML:
+Python
+
+Possible models:
+
+Logistic Regression
+Random Forest
+XGBoost
+LightGBM
+
+Use explainability:
+
+SHAP or feature importance
+
+Agent layer:
+Tool-calling architecture
+
+API layer:
+REST
+
+All AI decisions must be logged.
+
+Structure the application so that real payment APIs can be integrated later.
+
+For the hackathon, use safe simulated/test-mode financial actions.
+
+==================================================
+20. DESIGN
+==================================================
+
+The UI should look like a premium fintech command center.
+
+Design language:
+
+- sophisticated
+- minimal
+- high information density
+- professional
+- enterprise-grade
+- dark/light mode
+- responsive
+- smooth animations
+- excellent typography
+
+Avoid:
+
+- generic AI gradients
+- excessive neon
+- childish dashboards
+- unnecessary 3D
+- huge chatbot UI
+- fake "AI magic" animations
+
+The product should look like something a fintech company could actually ship.
+
+==================================================
+21. LANDING PAGE
+==================================================
+
+Hero:
+
+REVENUE AUTOPILOT
+
+"Don't just detect lost revenue.
+Recover it intelligently."
+
+Subheading:
+
+"An AI agent that finds revenue at risk, diagnoses the cause, chooses the optimal recovery action, and measures the money actually recovered."
+
+CTA:
+
+Launch Revenue Engine
+
+Secondary CTA:
+
+Run Recovery Simulation
+
+==================================================
+22. HACKATHON DEMO MODE
+==================================================
+
+Create a "2-Minute Demo" mode.
+
+The judge clicks:
+
+RUN DEMO
+
+Then automatically demonstrate:
+
+1. Revenue at risk detected
+2. AI diagnoses leakage
+3. Customer prioritized
+4. Recovery probability calculated
+5. Intervention selected
+6. Guardrail checked
+7. Simulated action executed
+8. Payment recovered
+9. Revenue KPI increases
+10. Audit trail records everything
+
+At the end display:
+
+REVENUE RECOVERED
+
+₹XX,XXX
+
+INCREMENTAL REVENUE
+
+₹XX,XXX
+
+AI DECISIONS
+
+XXX
+
+RECOVERY RATE
+
+XX%
+
+==================================================
+23. THE "WOW" MOMENT
+==================================================
+
+Create a large interactive button:
+
+"LET AI FIND ₹1,00,000"
+
+When clicked, the system analyzes the demo dataset and identifies the best opportunities.
+
+Show:
+
+"Found ₹1,24,800 potential recoverable revenue."
+
+Then rank opportunities.
+
+The system should explain exactly how it reached that number.
+
+The number must be calculated dynamically from the dataset.
+
+==================================================
+24. IMPORTANT PRODUCT PRINCIPLE
+==================================================
+
+The product must NEVER optimize for:
+
+"number of interventions"
+
+It must optimize for:
+
+NET RECOVERED REVENUE
+
+while minimizing:
+
+Customer friction
+Intervention cost
+Unnecessary communication
+Discount cost
+Failed retries
+
+The AI should sometimes choose:
+
+DO NOTHING
+
+This is extremely important.
+
+Demonstrate that intelligent automation sometimes means NOT acting.
+
+==================================================
+25. FINAL JUDGING SCREEN
+==================================================
+
+Create a final "Business Impact" page.
+
+Show:
+
+Revenue at Risk
+₹XX
+
+AI Identified
+₹XX
+
+Revenue Recovered
+₹XX
+
+Incremental Revenue
+₹XX
+
+Recovery Rate
+XX%
+
+Intervention Cost
+₹XX
+
+Net Revenue Impact
+₹XX
+
+Then show:
+
+"Why Revenue Autopilot?"
+
+1. Detects revenue leakage
+2. Understands root cause
+3. Predicts recoverability
+4. Chooses optimal intervention
+5. Executes within guardrails
+6. Handles failure safely
+7. Measures actual financial impact
+
+==================================================
+26. BUILD QUALITY REQUIREMENTS
+==================================================
+
+Do not build a static mockup.
+
+Every major interaction should work.
+
+Buttons must perform real actions.
+
+Charts must use actual application data.
+
+Simulation must calculate actual results.
+
+AI explanations must correspond to actual model inputs.
+
+Audit logs must update dynamically.
+
+Filters must work.
+
+Customer drill-down must work.
+
+Recovery simulation must work.
+
+The demo must be reproducible.
+
+Include loading states, empty states, error states and graceful failure states.
+
+Seed the application with realistic demo data so the product works immediately after launch.
+
+==================================================
+27. SECURITY REQUIREMENTS
+==================================================
+
+Implement:
+
+Input validation
+Authentication-ready architecture
+Role-based access structure
+API validation
+Rate limiting architecture
+Audit logging
+Secrets via environment variables
+No real payment credentials
+No real financial transactions
+Safe test-mode simulation
+
+Clearly label all financial actions as TEST/SIMULATED where appropriate.
+
+==================================================
+28. FINAL OUTPUT
+==================================================
+
+Deliver:
+
+1. Fully functional web application
+2. Seed dataset
+3. AI/ML decision engine
+4. Recovery simulator
+5. Agent workflow
+6. Explainability
+7. Guardrails
+8. Audit trail
+9. Failure/chaos demo
+10. Business impact dashboard
+11. 2-minute judge demo mode
+12. README with architecture
+13. API documentation
+14. Explanation of AI methodology
+15. Evaluation methodology
+16. Clear limitations and future improvements
+
+Most importantly:
+
+DO NOT optimize for visual appearance alone.
+
+The central proof of the product must be:
+
+"Given a batch of at-risk revenue, Revenue Autopilot can identify recoverable revenue, choose bounded interventions, execute them safely in simulation, and demonstrate measurable incremental revenue recovery against baseline strategies."
+
+Build this as if it will be evaluated by senior fintech engineers, AI researchers, and product judges.
+
+Make the product technically credible, measurable, explainable, and extremely difficult to dismiss as a simple AI wrapper.
